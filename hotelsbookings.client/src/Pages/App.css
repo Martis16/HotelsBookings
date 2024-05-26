@@ -1,0 +1,13 @@
+﻿.hotel-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.hotel-col {
+    display: flex;
+
+    padding-bottom: 50px;
+    justify-content: center;
+}
+

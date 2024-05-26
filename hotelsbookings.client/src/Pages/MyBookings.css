@@ -1,0 +1,39 @@
+.first {
+    text-align: center;
+    padding: 160px;
+
+    justify-content: center;
+    align-items: center;
+}
+.table-responsive {
+    border-radius: 10px; 
+    overflow: auto; 
+
+}
+
+
+@media (max-width: 768px) {
+    .table-responsive {
+        max-width: 80%; 
+    }
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+th, td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
