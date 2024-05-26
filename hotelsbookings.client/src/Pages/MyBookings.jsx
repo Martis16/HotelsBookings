@@ -37,7 +37,7 @@ const MyBookings = () => {
             
             <br /><br />
             <div className="table-responsive">
-                <Table striped bordered hover>
+                <Table striped bordered hover variant="dark">
                     <thead>
                         <tr>
                             <th>Start Date</th>
