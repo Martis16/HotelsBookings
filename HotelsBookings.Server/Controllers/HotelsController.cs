@@ -33,7 +33,7 @@ namespace HotelsBookings.Server.Controllers
                     {
                         HotelName = "Hotel Paradise",
                         Location = "Turkey, Belek",
-                        Image = "./Images/pexels-thorsten-technoman-109353-338504.jpg",
+                        Image = "./src/assets/Images/pexels-thorsten-technoman-109353-338504.jpg",
                         Bookings = new List<Bookings>()
 
                     },
@@ -41,49 +41,49 @@ namespace HotelsBookings.Server.Controllers
                     {
                         HotelName = "Ocean View",
                         Location = "Philippines, El Nido",
-                        Image = "./Images/pexels-boonkong-boonpeng-442952-1134176.jpg",
+                        Image = "./src/assets/Images/pexels-boonkong-boonpeng-442952-1134176.jpg",
                         Bookings = new List<Bookings>()
                     },
                     new Hotels
                     {
                         HotelName = "Mountain Retreat",
                         Location = "Turkey, Antalya",
-                        Image = "./Images/pexels-asman-chema-91897-594077.jpg",
+                        Image = "./src/assets/Images/pexels-asman-chema-91897-594077.jpg",
                         Bookings = new List<Bookings>()
                     },
                     new Hotels
                     {
                         HotelName = "City Lights Hotel",
                         Location = "Greece, Heraklion",
-                        Image = "./Images/pexels-asadphoto-1268871.jpg",
+                        Image = "./src/assets/Images/pexels-asadphoto-1268871.jpg",
                         Bookings = new List<Bookings>()
                     },
                     new Hotels
                     {
                         HotelName = "Desert Oasis",
                         Location = "Philippines, El Nido",
-                        Image = "./Images/pexels-michael-block-1691617-3225531.jpg",
+                        Image = "./src/assets/Images/pexels-michael-block-1691617-3225531.jpg",
                         Bookings = new List<Bookings>()
                     },
                     new Hotels
                     {
                         HotelName = "Lakeside Inn",
                         Location = "Maldives",
-                        Image = "./Images/pexels-ishan-139144-678725.jpg",
+                        Image = "./src/assets/Images/pexels-ishan-139144-678725.jpg",
                         Bookings = new List<Bookings>()
                     },
                     new Hotels
                     {
                         HotelName = "Sunset Resort",
                         Location = "Maldives",
-                        Image = "./Images/pexels-asadphoto-1287460.jpg",
+                        Image = "./src/assets/Images/pexels-asadphoto-1287460.jpg",
                         Bookings = new List<Bookings>()
                     },
                     new Hotels
                     {
                         HotelName = "Coastal Escape",
                         Location = "Egypt, Hurgada",
-                        Image = "./Images/pexels-pixabay-261429.jpg",
+                        Image = "./src/assets/Images/pexels-pixabay-261429.jpg",
                         Bookings = new List<Bookings>()
                     }
                 };

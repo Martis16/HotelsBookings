@@ -9,6 +9,6 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
+    <Folder Include="src\assets\Images\" />
   </ItemGroup>
 </Project>
