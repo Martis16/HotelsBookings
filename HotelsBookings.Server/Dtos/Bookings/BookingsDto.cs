@@ -1,5 +1,4 @@
-﻿
-using HotelsBookings.Server.Dtos.Hotels;
+﻿using HotelsBookings.Server.Dtos.Hotels;
 
 namespace HotelsBookings.Server.Dtos.Bookings
 {
@@ -13,6 +12,6 @@ namespace HotelsBookings.Server.Dtos.Bookings
         public int PersonCount { get; set; }
         public string RoomType { get; set; }
         public int HotelsId { get; set; }
-        public HotelsDto Hotel { get; set; }
+        public HotelsDto? Hotel { get; set; }
     }
 }

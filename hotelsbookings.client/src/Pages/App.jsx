@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import CardComp from '../components/CardComp'
-import {Form} from 'react-bootstrap';
+import CardComp from '../components/CardComp';
+import { Form } from 'react-bootstrap';
 
 const App = () => {
     const [hotels, setHotels] = useState([]);
@@ -10,12 +10,10 @@ const App = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const columnsPerRow = 4;
 
-
-
     useEffect(() => {
         const fetchHotels = async () => {
             try {
-                const response = await fetch('https://localhost:7267/api/Hotel');
+                const response = await fetch(import.meta.env.VITE_API_URL_HOTEL);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -31,9 +29,6 @@ const App = () => {
         fetchHotels();
     }, []);
 
-
-
-
     const filteredHotels = hotels.filter(hotel =>
         hotel.location.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -42,12 +37,8 @@ const App = () => {
 
     const placeholders = Array(placeholdersNeeded).fill({ placeholder: true });
 
-
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
-
-
-
 
     return (
         <div className="app-container" data-bs-theme="dark">

@@ -1,8 +1,6 @@
-﻿using System.Text.Json.Serialization;
-
-namespace HotelsBookings.Server.DataModel
+﻿namespace HotelsBookings.Server.DataModel
 {
-    public class Bookings
+    public class Booking
     {
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
@@ -12,6 +10,6 @@ namespace HotelsBookings.Server.DataModel
         public int PersonCount { get; set; }
         public string RoomType { get; set; }
         public int HotelsId { get; set; }
-        public Hotels? Hotel { get; set; }
+        public Hotel? Hotel { get; set; }
     }
 }

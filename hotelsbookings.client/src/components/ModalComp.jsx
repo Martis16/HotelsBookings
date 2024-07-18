@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import 'react-date-range/dist/styles.css'; 
-import 'react-date-range/dist/theme/default.css'; 
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 import DateRangeComp from './DateRangeComp';
-import './ModalComp.css'; 
-
+import './ModalComp.css';
 
 const ModalComp = ({ Name, HotelID }) => {
     const [show, setShow] = useState(false);
@@ -14,13 +13,17 @@ const ModalComp = ({ Name, HotelID }) => {
     const [RoomType, setRoomType] = useState('Deluxe');
     const [startDate, setstartDate] = useState(new Date());
     const [endDate, setendDate] = useState(new Date());
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleDateChange = (selectedRange) => {
         setstartDate(selectedRange.startDate);
         setendDate(selectedRange.endDate);
     };
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+        setErrorMessage(''); // Clear error messages when modal is closed
+    };
     const handleShow = () => setShow(true);
 
     const handleBreakfastChange = () => {
@@ -39,21 +42,26 @@ const ModalComp = ({ Name, HotelID }) => {
         try {
             const formData = {
                 StartDate: startDate,
-                EndDate: endDate, 
+                EndDate: endDate,
                 IncludeBreakfast,
                 PersonCount,
                 RoomType,
-
             };
             const start = new Date(startDate);
             const end = new Date(endDate);
 
             if (start.toDateString() === end.toDateString()) {
-                alert("Must be at least one night");
+                setErrorMessage("Must be at least one night");
                 return;
             }
+
+            if (PersonCount <= 0) {
+                setErrorMessage("PersonCount must be a positive number.");
+                return;
+            }
+
             console.log(formData);
-            const response = await fetch(`https://localhost:7267/api/Booking/${HotelID}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL_BOOKING}/${HotelID}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -62,16 +70,17 @@ const ModalComp = ({ Name, HotelID }) => {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to create booking');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to create booking');
             }
-            alert("Booking was successfull");
-            handleClose();
 
+            alert("Booking was successful");
+            handleClose();
         } catch (error) {
             console.error('Error creating booking:', error);
+            setErrorMessage(error.message);
         }
     };
-
 
     return (
         <>
@@ -84,10 +93,15 @@ const ModalComp = ({ Name, HotelID }) => {
                     <Modal.Title>{Name}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="modal-content">
+                    {errorMessage && (
+                        <div className="alert alert-danger" role="alert">
+                            {errorMessage}
+                        </div>
+                    )}
                     <Form>
                         <h5>Choose the date</h5>
                         <DateRangeComp onChange={handleDateChange} />
-                        <br></br>
+                        <br />
                         <Form.Group controlId="includeBreakfast">
                             <Form.Check
                                 type="checkbox"
@@ -96,7 +110,7 @@ const ModalComp = ({ Name, HotelID }) => {
                                 onChange={handleBreakfastChange}
                             />
                         </Form.Group>
-                        <br></br>
+                        <br />
                         <Form.Group controlId="numPeople">
                             <Form.Label>Number of People</Form.Label>
                             <Form.Control
@@ -111,7 +125,7 @@ const ModalComp = ({ Name, HotelID }) => {
                                 ))}
                             </Form.Control>
                         </Form.Group>
-                        <br></br>
+                        <br />
                         <Form.Group controlId="roomType">
                             <Form.Label>Room Type</Form.Label>
                             <Form.Control
@@ -125,7 +139,7 @@ const ModalComp = ({ Name, HotelID }) => {
                                     </option>
                                 ))}
                             </Form.Control>
-                            <br></br>
+                            <br />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
