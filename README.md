@@ -6,7 +6,7 @@ A website where you can book a hotel and see your bookings.
 * Reacts.js front-end
 * React bootstrap 
 * EF Core In-memory database
-
+* xUnit
 
 # How to run:
 
