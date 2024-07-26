@@ -1,8 +1,14 @@
-Topic:
+# Topic:
 A website where you can book a hotel and see your bookings.
 
+# Stack:
+* .Net Core back-end
+* Reacts.js front-end
+* React bootstrap 
+* EF Core In-memory database
 
-How to run:
+
+# How to run:
 
 1. Rebuild the solution
 ![image](https://github.com/user-attachments/assets/06fa34ab-3e3c-449a-929d-44f8d3e0f180)
