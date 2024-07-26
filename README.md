@@ -3,13 +3,15 @@ A website where you can book a hotel and see your bookings.
 #How to run:
 
 
-1. Rebuild the solution ![image](https://github.com/user-attachments/assets/06fa34ab-3e3c-449a-929d-44f8d3e0f180)
+1. Rebuild the solution
+![image](https://github.com/user-attachments/assets/06fa34ab-3e3c-449a-929d-44f8d3e0f180)
 
-![image](https://github.com/user-attachments/assets/d958dda5-a0e0-4435-a497-4cdc2d1764b1).
+![image](https://github.com/user-attachments/assets/d958dda5-a0e0-4435-a497-4cdc2d1764b1)
 
 if it doesn't work after rebuilding, check if both projects are set to "Start".
 1. Right-click solution.
-[image](https://github.com/user-attachments/assets/43491c82-98c8-4959-b4df-b9e9dc3528a8)
+![image](https://github.com/user-attachments/assets/87a5d8e3-2d68-49a8-8169-0acf38ae5c8b)
+
 
 2. Click properties.
 ![image](https://github.com/user-attachments/assets/8f343716-ca50-462a-923c-b0064ca969df)
