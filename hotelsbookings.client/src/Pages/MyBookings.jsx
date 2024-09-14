@@ -12,7 +12,7 @@ const MyBookings = () => {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await fetch('https://localhost:7267/api/Booking');
+                const response = await fetch(import.meta.env.VITE_API_URL_BOOKING);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

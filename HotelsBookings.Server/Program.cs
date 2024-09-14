@@ -1,4 +1,6 @@
 using HotelsBookings.Server.DataModel;
+using HotelsBookings.Server.Repository.Interface;
+using HotelsBookings.Server.Repository.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,8 @@ builder.Services.AddCors(options =>
                                       .AllowAnyMethod());
 });
 
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 

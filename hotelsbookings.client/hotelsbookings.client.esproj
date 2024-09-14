@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\assets\Images\" />
+    <Folder Include="src\hooks\" />
   </ItemGroup>
 </Project>

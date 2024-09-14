@@ -2,56 +2,64 @@
 using HotelsBookings.Server.Calculations;
 using HotelsBookings.Server.DataModel;
 using HotelsBookings.Server.Dtos.Bookings;
+using HotelsBookings.Server.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace HotelsBookings.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BookingController(AppDBContext context, IMapper mapper) : ControllerBase
+    public class BookingController : ControllerBase
     {
-        private readonly AppDBContext _context = context;
-        private readonly IMapper _mapper = mapper;
+        private readonly IBookingRepository _bookingRepository;
+        private readonly IMapper _mapper;
 
+        public BookingController(IBookingRepository bookingRepository, IMapper mapper)
+        {
+            _bookingRepository = bookingRepository;
+            _mapper = mapper;
+        }
 
+        // GET: api/booking
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookingsDto>>> GetBookings()
         {
-            var bookings = await _context.Bookings.Include(b => b.Hotel).ToListAsync();
-            var bookingDtos = _mapper.Map<List<BookingsDto>>(bookings);
-            return bookingDtos;
+            var bookings = await _bookingRepository.GetAllBookingsAsync();
+            var bookingDtos = _mapper.Map<IEnumerable<BookingsDto>>(bookings);
+            return Ok(bookingDtos);
         }
 
-        [HttpPost("{HotelsId}")]
-        public async Task<ActionResult> CreateBooking([FromRoute] int HotelsId, [FromBody] BookingsDto booking)
+        // POST: api/booking/{hotelId}
+        [HttpPost("{hotelId}")]
+        public async Task<ActionResult> CreateBooking([FromRoute] int hotelId, [FromBody] BookingsDto bookingDto)
         {
+            // Validate the incoming DTO
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            // Map the DTO to the entity
+            var booking = _mapper.Map<Booking>(bookingDto);
 
+            // Perform additional calculations before saving
             var strategy = new CalculateTotalCost();
-            var Calculator = new Calculator(strategy, booking);
+            var calculator = new Calculator(strategy, bookingDto);
 
-            booking.HotelsId = HotelsId;
-            booking.TotalCost = Calculator.CalculateCost(booking);
+            booking.HotelsId = hotelId;
+            booking.TotalCost = calculator.CalculateCost(bookingDto);
 
+            // Handle validation errors
             if (booking.TotalCost == -1.0m) return BadRequest(new { message = "Booking end date must be in the future." });
             if (booking.TotalCost == -2.0m) return BadRequest(new { message = "StartDate must be before EndDate." });
             if (booking.TotalCost == -3.0m) return BadRequest(new { message = "PersonCount must be a positive number." });
 
-            var bookingEnt = _mapper.Map<Booking>(booking);
+            // Create the booking in the repository
+            var createdBooking = await _bookingRepository.CreateBookingAsync(booking, hotelId);
 
-            try
-            {
-                _context.Bookings.Add(bookingEnt);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, new { message = "An error occurred while saving the booking.", details = ex.Message });
-            }
-
-            var bookingDTO = _mapper.Map<BookingsDto>(bookingEnt);
-            return CreatedAtAction(nameof(GetBookings), new { id = bookingEnt.Id }, bookingDTO);
+            // Map the entity back to the DTO for the response
+            var bookingResultDto = _mapper.Map<BookingsDto>(createdBooking);
+            return CreatedAtAction(nameof(GetBookings), new { id = bookingResultDto.Id }, bookingResultDto);
         }
     }
 

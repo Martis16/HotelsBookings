@@ -4,7 +4,6 @@ namespace HotelsBookings.Server.Dtos.Hotels
 {
     public class HotelsDto
     {
-
         public int Id { get; set; }
         public string HotelName { get; set; }
         public string Location { get; set; }
